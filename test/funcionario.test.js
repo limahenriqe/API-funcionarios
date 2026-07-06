@@ -1,6 +1,6 @@
 const request = require("supertest")
 
-const app = require ("../app")
+const app = require ("../src/app")
 
 //escrita de um teste
 describe("API de funcionarios", ()=>{

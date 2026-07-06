@@ -2,7 +2,6 @@ name: Pipeline CI
 
 on:
 
-
     push:
         branches:
             - master
@@ -10,7 +9,22 @@ on:
 jobs: 
     build:
         runs-on: ubuntu-latest
-
+        
+        services:
+            mysql:
+                image: mysql:8
+                env: 
+                    MYSQL_ROOT_PASSWORD: $({secrets.DB_PASSWORD})
+                    MYSQL_DATABASE: empresa
+                ports:
+                    - 3306:3306
+                options: 
+                    --health-cmd="mysqladmin ping"
+                    --health-interval=10s
+                    --health-timeout=5s
+                    --health-retrites=5
+        
+        
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
