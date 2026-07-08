@@ -7,7 +7,7 @@ describe("API de funcionarios", ()=>{
     
     it("Deve cadastrar um funcionario", async()=>{
 
-        const resposta = await request(app).post("/funcionarios").send({
+        const resposta = await request(app).post("/funcionario").send({
             nome: "Maria",
             cargo: "Analista"
         })
