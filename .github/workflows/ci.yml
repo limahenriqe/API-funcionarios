@@ -12,14 +12,14 @@ jobs:
     env:
       DB_HOST: 127.0.0.1
       DB_USER: root
-      DB_PASSWORD: root
+      DB_PASSWORD: null
       DB_NAME: empresa_test
 
     services:
       mysql:
         image: mysql:8
         env:
-          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: null
           MYSQL_DATABASE: empresa_test
         ports:
           - 3306:3306
