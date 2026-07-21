@@ -1,45 +1,46 @@
 name: Pipeline CI
 
 on:
+  push:
+    branches:
+      - master
 
-    push:
-        branches:
-            - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-jobs: 
-    build:
-        runs-on: ubuntu-latest
-        
-        services:
-            mysql:
-                image: mysql:8
-                env: 
-                    MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
-                    MYSQL_DATABASE: empresa
-                ports:
-                    - 3306:3306
-                options: 
-                    --health-cmd="mysqladmin ping"
-                    --health-interval=10s
-                    --health-timeout=5s
-                    --health-retries=5
-        
-        
-        steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
-              with:
-                node-version: 24
+    env:
+      DB_HOST: 127.0.0.1
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: empresa_test
 
-            - run: npm install
-
-            - run: npm test
-            
-            - run: npm run build
-
+    services:
+      mysql:
+        image: mysql:8
         env:
-            DB_HOST: 127.0.0.1
-            DB_USER: root
-            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-            DB_NAME: empresa
-            
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: empresa_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - run: npm install
+
+      # Cria as tabelas no banco de testes
+      - run: npx sequelize-cli db:migrate --env test
+
+      # Executa os testes
+
+      - run: npm run build
