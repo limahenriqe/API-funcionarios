@@ -37,18 +37,12 @@ exports.listar = async(req,res) => {
 
 
 exports.deletar = async (req,res) => {
-    
+
     try {
         
         const {id} = req.params;
 
         const funcionario = await Funcionario.findByPk(id);
-
-        if (!funcionario) {
-            return res.status(404).json({
-                message: "Funcionario não encontrado"
-            });
-        }
 
         await funcionario.destroy();
 
