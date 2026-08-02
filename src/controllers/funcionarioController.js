@@ -37,6 +37,7 @@ exports.listar = async(req,res) => {
 
 
 exports.deletar = async (req,res) => {
+    
     try {
         
         const {id} = req.params;
