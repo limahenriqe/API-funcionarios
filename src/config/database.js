@@ -13,11 +13,12 @@ const sequelize = new Sequelize (
     }
 )
 
-try {
-    sequelize.authenticate()
-    console.log("Banco conectado com sucesso")
-} catch (error){
-    console.log(error)
-}
+sequelize.authenticate()
+    .then(() => {
+        console.log("Banco conectado com sucesso");
+    })
+    .catch((error) => {
+        console.error("Erro ao conectar ao banco:", error);
+    });
 
 module.exports = sequelize
