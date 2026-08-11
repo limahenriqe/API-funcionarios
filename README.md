@@ -18,6 +18,7 @@ API responsável pelo gerenciamento dos funcionários do sistema. O projeto perm
 
 * Cadastro de funcionários
 * Listagem de funcionários
+* Atualização (ou edição) de funcionários
 * Consulta de informações dos funcionários
 * Integração com outros serviços por meio de APIs
 * Persistência dos dados no MySQL
