@@ -1,13 +1,11 @@
-const express = require("express")
+const express = require("express");
 
-const router = express.Router()
+const router = express.Router();
 
-const controller = require("../controllers/funcionarioController")
+const controller = require("../controllers/funcionarioController");
 
+router.get("/funcionarios", controller.listar);
+router.post("/funcionarios", controller.cadastrar);
+router.delete("/funcionarios/:id", controller.deletar);
 
-router.get("/funcionarios",controller.listar)
-router.post("/funcionarios",controller.cadastrar)
-router.delete("/funcionarios/:id",controller.deletar)
-
-
-module.exports = router
+module.exports = router;
